@@ -138,3 +138,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # This variable will be responsible for the path of media files in the browser
 MEDIA_URL = "/media/"
+
+# Enable file caching for the project development period
+# File caching is very slow, in a real project you should use caching in RAM
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": BASE_DIR / "cache",
+    }
+}

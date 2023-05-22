@@ -101,6 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# If you specify AUTH_USER_MODEL in the project settings Django
+# will use your own model instead of the User model for authentication,
+# authorization and other user-related operations
 AUTH_USER_MODEL = "blog.User"
 
 
@@ -125,3 +128,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# With this line we say that the directory with the media files
+# will be in the root of our project
+MEDIA_ROOT = BASE_DIR / "media"
+
+# This variable will be responsible for the path of media files in the browser
+MEDIA_URL = "/media/"

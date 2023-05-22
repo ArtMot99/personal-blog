@@ -19,7 +19,7 @@ class Category(models.Model):
     class Meta:
         ordering = ["name"]
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         return self.name
 
 
@@ -36,7 +36,7 @@ class Post(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         return self.title
 
 

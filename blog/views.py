@@ -1,10 +1,10 @@
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView
 
-from blog.forms import PostFilterForm, PostSearchForm, CommentForm
+from blog.forms import PostFilterForm, PostSearchForm, CommentForm, SignUpForm
 from blog.models import Post, Comment
 
 
@@ -47,10 +47,21 @@ def index(request) -> HttpResponse:
     return render(request, "blog/index.html", context=context)
 
 
+def register(request) -> HttpResponse:
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = SignUpForm()
+    return render(request, "registration/sign-up.html", {"form": form})
+
+
 class PostDetailView(DetailView):
     model = Post
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         comments = Comment.objects.filter(post=self.object)
         paginator = Paginator(comments, 4)
@@ -62,7 +73,7 @@ class PostDetailView(DetailView):
 
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         self.object = get_object_or_404(self.model, pk=self.kwargs.get("pk"))
         form = CommentForm(request.POST)
 

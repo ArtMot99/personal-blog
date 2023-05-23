@@ -9,7 +9,16 @@ from blog.models import Post, Comment
 
 
 def index(request) -> HttpResponse:
-    """Index view for the blog project home page"""
+    """
+    The index home page view
+
+    Which contains the processing of two widgets
+    and also contains pagination, prefetch and select related
+    was used to reduce the load on the database
+
+    :param request: request
+    :return: HttpResponse
+    """
     post_list = (
         Post.objects.select_related("author")
         .prefetch_related("categories")
@@ -48,6 +57,15 @@ def index(request) -> HttpResponse:
 
 
 def register(request) -> HttpResponse:
+    """
+    User registration view
+
+    That processes the registration form
+    and redirects to the login page
+
+    :param request: request
+    :return: HttpResponse
+    """
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -62,6 +80,16 @@ class PostDetailView(DetailView):
     model = Post
 
     def get_context_data(self, **kwargs) -> dict:
+        """
+        Processing comments on the selected post
+
+        Show comments that belong to the selected post,
+        add a comment form to the context, and add pagination to the
+        page with comments
+
+        :param kwargs: **kwargs
+        :return: dict
+        """
         context = super().get_context_data(**kwargs)
         comments = Comment.objects.filter(post=self.object)
         paginator = Paginator(comments, 4)
@@ -74,6 +102,14 @@ class PostDetailView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs) -> HttpResponse:
+        """
+        Process the form for adding a comment by the user
+
+        :param request: request
+        :param args: *args
+        :param kwargs: **kwargs
+        :return: HttpResponse
+        """
         self.object = get_object_or_404(self.model, pk=self.kwargs.get("pk"))
         form = CommentForm(request.POST)
 

@@ -42,22 +42,33 @@
           </section>
         </article>
         <!-- Comments section-->
-        <section class="mb-5">
+        {% if not user.is_authenticated %}
+          <span class="text-muted">
+            If you want to leave a comment - you need to
+            <a class="text-decoration-none" href="{% url "login" %}">login</a> or
+            <a class="text-decoration-none" href="{% url "blog:sign-up" %}">register</a>
+          </span>
+        {% endif %}
+        <section id="comments-section" class="mb-5">
           <div class="card bg-light">
+            <h4 class="text-center mb-3 mt-3">Commentary</h4>
             <div class="card-body">
               <!-- Comment form-->
-              <form class="mb-4" method="post" action="">
-                {% csrf_token %}
-                {{ comment_form|crispy }}
-                <button class="btn btn-primary" type="submit">Submit</button>
-              </form>
+              {% if user.is_authenticated %}
+                <form class="mb-4" method="post" action="">
+                  {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+              {% endif %}
               <!-- Comment with nested comments-->
               {% for comment in comments %}
               <div class="d-flex mb-4">
                 <!-- Single comment-->
                 <div class="d-flex">
                   <div class="flex-shrink-0">
-                    <img style="width: 60px; height: 60px;"
+                    <img width="50px"
+                         height="50px"
                          class="rounded-circle" src="{% static "assets/user_image.jpg.avif" %}"
                          alt="User random image" />
                   </div>

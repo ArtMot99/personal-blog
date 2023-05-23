@@ -1,6 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
-from blog.models import Category
+from blog.models import Category, User
 
 
 class PostFilterForm(forms.Form):
@@ -30,3 +31,10 @@ class CommentForm(forms.Form):
             attrs={"placeholder": "Join the discussion and leave a comment!"}
         ),
     )
+
+
+class SignUpForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2')

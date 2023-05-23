@@ -2,8 +2,10 @@ from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import render
-from blog.forms import PostFilterForm, PostSearchForm
-from blog.models import Post
+from django.views.generic import DetailView
+
+from blog.forms import PostFilterForm, PostSearchForm, CommentForm
+from blog.models import Post, Comment
 
 
 def index(request) -> HttpResponse:
@@ -12,6 +14,7 @@ def index(request) -> HttpResponse:
         Post.objects.select_related("author")
         .prefetch_related("categories")
         .annotate(num_comments=Count("comments"))
+        .order_by("-created_at")
     )
     filter_form = PostFilterForm()
     search_form = PostSearchForm()
@@ -42,3 +45,25 @@ def index(request) -> HttpResponse:
     }
 
     return render(request, "blog/index.html", context=context)
+
+
+class PostDetailView(DetailView):
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comment_form"] = CommentForm()
+        context["comments"] = Comment.objects.filter(post=self.object)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = Comment(
+                text=form.cleaned_data["text"], post=self.object, author=request.user
+            )
+            comment.save()
+            return self.get(request, *args, **kwargs)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))

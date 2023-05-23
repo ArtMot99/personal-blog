@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 
 from blog.forms import PostFilterForm, PostSearchForm, CommentForm
@@ -52,13 +52,20 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        comments = Comment.objects.filter(post=self.object)
+        paginator = Paginator(comments, 4)
+        page_number = self.request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
         context["comment_form"] = CommentForm()
-        context["comments"] = Comment.objects.filter(post=self.object)
+        context["comments"] = page_obj
+
         return context
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        self.object = get_object_or_404(self.model, pk=self.kwargs.get("pk"))
         form = CommentForm(request.POST)
+
         if form.is_valid():
             comment = Comment(
                 text=form.cleaned_data["text"], post=self.object, author=request.user

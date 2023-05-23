@@ -115,6 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # authorization and other user-related operations
 AUTH_USER_MODEL = "blog.User"
 
+LOGIN_REDIRECT_URL = "/"
+
+LOGOUT_REDIRECT_URL = "login"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

@@ -71,6 +71,8 @@
               {% empty %}
                 <p>No comments yet.</p>
               {% endfor %}
+            <!-- Pagination for comments -->
+              {% include "includes/comment_pagination.html" %}
             </div>
           </div>
         </section>

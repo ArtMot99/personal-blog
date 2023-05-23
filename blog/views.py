@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import DetailView
 
 from blog.forms import PostFilterForm, PostSearchForm, CommentForm, SignUpForm
@@ -105,6 +106,9 @@ class PostDetailView(DetailView):
         """
         Process the form for adding a comment by the user
 
+        In this view, the url address is processed and after the user has left a comment,
+        he will be redirected to the section that is marked comments-section in the template
+
         :param request: request
         :param args: *args
         :param kwargs: **kwargs
@@ -118,6 +122,9 @@ class PostDetailView(DetailView):
                 text=form.cleaned_data["text"], post=self.object, author=request.user
             )
             comment.save()
-            return self.get(request, *args, **kwargs)
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+
+            url = reverse("blog:post-detail", kwargs={"pk": self.object.pk})
+            return redirect(f"{url}?page=1#comments-section")
+
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)

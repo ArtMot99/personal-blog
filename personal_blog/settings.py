@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 DEVELOPED_APPS = [
     "blog",
     "sorl.thumbnail",
+    "crispy_forms",
 ]
 
 INSTALLED_APPS = [

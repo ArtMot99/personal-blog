@@ -40,7 +40,7 @@ class SignUpForm(UserCreationForm):
         fields = ("username", "password1", "password2")
 
 
-class PostCreateForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
 
     class Meta:

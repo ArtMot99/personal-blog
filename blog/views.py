@@ -1,8 +1,8 @@
 from typing import Optional
 
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
+from django.db.models import Count, Q, QuerySet
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -185,3 +185,19 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
     def test_func(self) -> bool:
         """Check if user is superuser or Forbidden(403)"""
         return self.request.user.is_superuser
+
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comment
+
+    def get_success_url(self) -> Optional[str]:
+        """To stay on the page at the #comments-section after delete a comment"""
+        post_pk = self.object.post.pk
+
+        return reverse("blog:post-detail", kwargs={"pk": post_pk}) + "#comments-section"
+
+    def get_queryset(self) -> QuerySet[Comment]:
+        """Comments will be filtered by the current user"""
+        queryset = super().get_queryset()
+
+        return queryset.filter(author=self.request.user)

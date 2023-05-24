@@ -143,7 +143,7 @@ class PostCreateView(UserPassesTestMixin, CreateView):
     success_url = reverse_lazy("blog:index")
 
     def test_func(self):
-        """Check if user is superuser"""
+        """Check if user is superuser or Forbidden(403)"""
         return self.request.user.is_superuser
 
     def form_valid(self, form) -> HttpResponse:

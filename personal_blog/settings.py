@@ -35,6 +35,7 @@ DEVELOPED_APPS = [
     "sorl.thumbnail",
     "crispy_forms",
     "crispy_bootstrap5",
+    "ckeditor",
 ]
 
 INSTALLED_APPS = [
@@ -156,4 +157,12 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "LOCATION": BASE_DIR / "cache",
     }
+}
+
+# Add configuration for CKEditor
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+        "height": 300,
+    },
 }

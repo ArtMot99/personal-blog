@@ -14,6 +14,12 @@
         <article>
             <!-- Post header-->
           <header class="mb-4">
+            {% if user.is_superuser %}
+              <div>
+                <a href="{% url "blog:post-delete" pk=post.pk %}" class="btn btn-danger float-end m-2" >Delete</a>
+                <a href="{% url "blog:post-update" pk=post.pk %}" class="btn btn-warning float-end m-2">Update</a>
+              </div>
+            {% endif %}
             <!-- Post title-->
             <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
             <!-- Post meta content-->

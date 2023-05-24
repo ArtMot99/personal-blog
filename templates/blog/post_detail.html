@@ -32,9 +32,7 @@
               <figure class="mb-4"><img class="img-fluid rounded" src="{{ im.url }}" alt="Post {{ post.title }}" /></figure>
             {% endthumbnail %}
           {% else %}
-            <figure class="mb-4">
-              <img class="img-fluid rounded" src="{% static "assets/new_post_image.jpeg" %}" width="700px" height="300px" alt="Post {{ post.title }}"/>
-            </figure>
+            <hr>
           {% endif %}
           <!-- Post content-->
           <section class="mb-5">

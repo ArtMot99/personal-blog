@@ -75,18 +75,26 @@
                          height="50px"
                          class="rounded-circle" src="{% static "assets/user_image.png" %}"
                          alt="User random image" />
+                    {% if comment.author == request.user %}
+                      <form action="{% url "blog:comment-delete" comment.pk %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-sm btn-danger m-2" type="submit" value="Delete">
+                      </form>
+                    {% endif %}
                   </div>
                   <div class="ms-3">
                     <div class="fw-bold">{{ comment.author }}</div>
                     <div class="text-muted fst-italic mb-2">
                       <small>{{ comment.created_at }}</small>
                     </div>
-                    {{ comment.text }}
+                    <div class="comment-text">
+                      <p class="text-break">{{ comment.text }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
               {% empty %}
-                <p>No comments yet.</p>
+                <p>No comments yet</p>
               {% endfor %}
             <!-- Pagination for comments -->
               {% include "includes/comment_pagination.html" %}

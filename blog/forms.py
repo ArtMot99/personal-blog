@@ -1,7 +1,8 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from blog.models import Category, User
+from blog.models import Category, User, Post
 
 
 class PostFilterForm(forms.Form):
@@ -34,7 +35,14 @@ class CommentForm(forms.Form):
 
 
 class SignUpForm(UserCreationForm):
-
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2')
+        fields = ("username", "password1", "password2")
+
+
+class PostCreateForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorWidget())
+
+    class Meta:
+        model = Post
+        fields = ["title", "content", "categories", "image"]

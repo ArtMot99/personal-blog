@@ -28,12 +28,12 @@
           </header>
           <!-- Preview image figure-->
           {% if post.image %}
-            {% thumbnail post.image "900x400" crop="center" as im %}
+            {% thumbnail post.image "800x400" crop="center" as im %}
               <figure class="mb-4"><img class="img-fluid rounded" src="{{ im.url }}" alt="Post {{ post.title }}" /></figure>
             {% endthumbnail %}
           {% else %}
             <figure class="mb-4">
-              <img class="img-fluid rounded" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="Post {{ post.title }}"/>
+              <img class="img-fluid rounded" src="{% static "assets/new_post_image.jpeg" %}" width="700px" height="300px" alt="Post {{ post.title }}"/>
             </figure>
           {% endif %}
           <!-- Post content-->
@@ -67,9 +67,9 @@
                 <!-- Single comment-->
                 <div class="d-flex">
                   <div class="flex-shrink-0">
-                    <img width="50px"
+                    <img width="80px"
                          height="50px"
-                         class="rounded-circle" src="{% static "assets/user_image.jpg.avif" %}"
+                         class="rounded-circle" src="{% static "assets/user_image.png" %}"
                          alt="User random image" />
                   </div>
                   <div class="ms-3">

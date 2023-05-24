@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load thumbnail %}
 
 
@@ -15,15 +16,19 @@
           <div class="card mb-4">
             {% if post.image %}
               {% thumbnail post.image "700x350" crop="center" as im %}
-                <a href="{% url "blog:post-detail" pk=post.pk %}"><img class="card-img-top" src="{{ im.url }}" alt="Post {{ post.title }}"></a>
+                <a href="{% url "blog:post-detail" pk=post.pk %}">
+                  <img class="card-img-top" src="{{ im.url }}" alt="Post {{ post.title }}">
+                </a>
               {% endthumbnail %}
             {% else %}
-              <a href="{% url "blog:post-detail" pk=post.pk %}"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+              <a href="{% url "blog:post-detail" pk=post.pk %}">
+                <img class="card-img-top" src="{% static "assets/new_post_image.jpeg" %}" alt="{{ post.title }}" width="700px" height="350px" />
+              </a>
             {% endif %}
             <div class="card-body">
               <div class="small text-muted">{{ post.created_at }}</div>
               <h2 class="card-title h4">{{ post.title }}</h2>
-              <p class="card-text">{{ post.content|truncatewords:30|safe }}</p>
+{#              <p class="card-text">{{ post.content|truncatewords:30 }}</p>#}
               <a class="btn btn-primary" href="{% url "blog:post-detail" pk=post.pk %}">Read more →</a>
               {% if post.num_comments %}
                 <div class="small text-muted float-end">

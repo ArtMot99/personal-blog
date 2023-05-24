@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse
@@ -137,10 +137,14 @@ class PostDetailView(DetailView):
         return self.render_to_response(context)
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(UserPassesTestMixin, CreateView):
     model = Post
     form_class = PostCreateForm
     success_url = reverse_lazy("blog:index")
+
+    def test_func(self):
+        """Check if user is superuser"""
+        return self.request.user.is_superuser
 
     def form_valid(self, form) -> HttpResponse:
         """

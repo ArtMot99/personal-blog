@@ -6,7 +6,7 @@ from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from blog.forms import (
     PostFilterForm,
@@ -175,3 +175,13 @@ class PostUpdateView(UserPassesTestMixin, UpdateView):
     def get_success_url(self) -> Optional[str]:
         """Redirect after update to post page"""
         return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
+
+
+class PostDeleteView(UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = "blog/post_confirm_delete.html"
+    success_url = reverse_lazy("blog:index")
+
+    def test_func(self) -> bool:
+        """Check if user is superuser or Forbidden(403)"""
+        return self.request.user.is_superuser

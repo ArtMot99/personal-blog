@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  <div class="container mt-2 mb-2">
+    <div class="row">
+      <div class="">
+        <div class="card">
+          <div class="card-body p-lg-5 text-center">
+            <div class="text-center">
+              <img src="{% static "assets/delete_confirm_image.png" %}"
+                   class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                   width="200px" alt="profile">
+            </div>
+            <h1>{{ post.title }}</h1>
+
+            <p>Are you sure you want to delete the post: <strong>{{ post.title }}</strong></p>
+            <p><em>All comments with this post will be also deleted</em></p>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

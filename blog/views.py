@@ -1,11 +1,18 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.views.generic import DetailView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, CreateView
 
-from blog.forms import PostFilterForm, PostSearchForm, CommentForm, SignUpForm
+from blog.forms import (
+    PostFilterForm,
+    PostSearchForm,
+    CommentForm,
+    SignUpForm,
+    PostCreateForm,
+)
 from blog.models import Post, Comment
 
 
@@ -128,3 +135,24 @@ class PostDetailView(DetailView):
 
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostCreateForm
+    success_url = reverse_lazy("blog:index")
+
+    def form_valid(self, form) -> HttpResponse:
+        """
+        Assign the author to the post and also save the picture
+
+        :param form: PostCreateForm
+        :return: HttpResponse
+        """
+        form.instance.author = self.request.user
+        self.object = form.save()
+        if "image" in self.request.FILES:
+            self.object.image = self.request.FILES["image"]
+            self.object.save()
+
+        return super().form_valid(form)

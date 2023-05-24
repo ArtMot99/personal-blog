@@ -10,7 +10,7 @@
       <!-- Nested row for non-featured blog posts-->
       {% for post in page_obj %}
       <div class="row">
-        <div class="col-md-auto">
+        <div class="col-md-12">
           <!-- Blog post-->
           <div class="card mb-4">
             {% if post.image %}
@@ -23,7 +23,7 @@
             <div class="card-body">
               <div class="small text-muted">{{ post.created_at }}</div>
               <h2 class="card-title h4">{{ post.title }}</h2>
-              <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+              <p class="card-text">{{ post.content|truncatewords:30|safe }}</p>
               <a class="btn btn-primary" href="{% url "blog:post-detail" pk=post.pk %}">Read more →</a>
               {% if post.num_comments %}
                 <div class="small text-muted float-end">

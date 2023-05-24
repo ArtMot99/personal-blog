@@ -1,9 +1,17 @@
+{% load static %}
 <!-- Page header with logo and tagline-->
-<header class="py-1 bg-light border-bottom mb-4">
-  <div class="container">
-    <div class="text-center my-5">
-      <h1 class="fw-bolder">Welcome to my personal blog!</h1>
-      <p class="lead mb-0">In this blog you can read and comment on posts</p>
+<header class="bg-light border-bottom mb-4">
+  <!-- Background image -->
+  <div
+    class="pt-5 text-center bg-image"
+    style="background-image: url({% static "assets/background_image.avif" %});height: 220px;">
+    <div class="mask animate__animated animate__slideInDown" style="background-color: rgba(0, 0, 0, 0.6);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="mb-3 mt-2">Hello</h1>
+          <h4 class="mb-3">Welcome to my personal blog</h4>
+        </div>
+      </div>
     </div>
   </div>
 </header>

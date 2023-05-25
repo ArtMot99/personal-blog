@@ -32,7 +32,7 @@
               <a href="{% url "blog:post-detail" pk=post.pk %}" class="text-decoration-none text-dark">
                 <h2 class="card-title h4">{{ post.title }}</h2>
               </a>
-{#              <p class="card-text">{{ post.content|truncatewords:30 }}</p>#}
+{#              <p class="card-text">{{ post.content|truncatewords:30|safe }}</p>#}
 {#              <a class="btn btn-primary" href="{% url "blog:post-detail" pk=post.pk %}">Read more →</a>#}
               {% if post.num_comments %}
                 <div class="small text-muted float-end">
@@ -47,6 +47,8 @@
           </div>
         </div>
       </div>
+      {% empty %}
+        <h4>There are currently no posts on this blog</h4>
       {% endfor %}
       <!-- Pagination-->
       {% include "includes/post_pagination.html" %}

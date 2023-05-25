@@ -86,6 +86,11 @@ def register(request) -> HttpResponse:
     return render(request, "registration/sign-up.html", {"form": form})
 
 
+def permission_denied(request, exception) -> HttpResponse:
+    """Handle 403 error and return custom template"""
+    return render(request, "error_pages/handle_error_403.html", status=403)
+
+
 class PostDetailView(DetailView):
     model = Post
 

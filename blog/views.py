@@ -88,7 +88,12 @@ def register(request) -> HttpResponse:
 
 def permission_denied(request, exception) -> HttpResponse:
     """Handle 403 error and return custom template"""
-    return render(request, "error_pages/handle_error_403.html", status=403)
+    return render(request, "error_pages/error_403.html", status=403)
+
+
+def page_not_found(request, exception) -> HttpResponse:
+    """Handle 404 error and return custom template"""
+    return render(request, "error_pages/error_404.html", status=404)
 
 
 class PostDetailView(DetailView):

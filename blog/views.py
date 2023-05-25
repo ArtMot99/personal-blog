@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Count, Q, QuerySet
@@ -53,6 +54,8 @@ def index(request) -> HttpResponse:
                 post_list = post_list.filter(
                     Q(title__icontains=search_term) | Q(content__icontains=search_term)
                 )
+                if not post_list.exists():
+                    messages.error(request, "No results found")
 
     paginator = Paginator(post_list, 4)
     page_number = request.GET.get("page")

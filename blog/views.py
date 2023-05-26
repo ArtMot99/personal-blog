@@ -15,8 +15,9 @@ from blog.forms import (
     CommentForm,
     SignUpForm,
     PostForm,
+    ContactForm,
 )
-from blog.models import Post, Comment
+from blog.models import Post, Comment, ContactMessage
 
 
 def index(request) -> HttpResponse:
@@ -97,6 +98,37 @@ def permission_denied(request, exception) -> HttpResponse:
 def page_not_found(request, exception) -> HttpResponse:
     """Handle 404 error and return custom template"""
     return render(request, "error_pages/error_404.html", status=404)
+
+
+def contact(request) -> HttpResponse:
+    """
+    View for contact page
+
+    In this view, the feedback form is processed, after the successful
+    submission of the form, the user will receive notifications
+    of successful submission
+
+    :param request: request
+    :return: HttpResponse
+    """
+    form = ContactForm()
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data["email"]
+            subject = form.cleaned_data["subject"]
+            message = form.cleaned_data["message"]
+
+            contact_message = ContactMessage(
+                name=name, email=email, subject=subject, message=message
+            )
+            contact_message.save()
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect(request.path)
+
+    return render(request, "blog/contact.html", {"form": form})
 
 
 class PostDetailView(DetailView):

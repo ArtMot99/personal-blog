@@ -73,7 +73,7 @@
                   <div class="flex-shrink-0">
                     <img width="80px"
                          height="50px"
-                         class="rounded-circle" src="{% static "assets/user_image.png" %}"
+                         class="rounded-circle" src="{% static "assets/img/user_image.png" %}"
                          alt="User random image" />
                     {% if comment.author == request.user %}
                       <form action="{% url "blog:comment-delete" comment.pk %}" method="post">

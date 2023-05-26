@@ -100,6 +100,11 @@ def page_not_found(request, exception) -> HttpResponse:
     return render(request, "error_pages/error_404.html", status=404)
 
 
+def about(request) -> HttpResponse:
+    """About page view"""
+    return render(request, "blog/about.html")
+
+
 def contact(request) -> HttpResponse:
     """
     View for contact page

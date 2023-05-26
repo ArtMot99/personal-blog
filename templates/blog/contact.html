@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block head %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Personal Blog</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="{% static "assets/favicon.ico" %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+  <!-- Style -->
+  <link rel="stylesheet" href="{% static "css/styles_contact.css" %}">
+  <!-- Original CSS -->
+  <link href="{% static "css/styles.css" %}" rel="stylesheet" />
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              
+              <h3 class="heading mb-4">Let's talk about everything!</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis, fugit natus?</p>
+
+              <p><img src="{% static "assets/undraw-contact.svg" %}" alt="Image" class="img-fluid"></p>
+            </div>
+            <div class="col-md-6">
+              
+              <form class="mb-5" method="post" id="contactForm" name="contactForm">
+                {% csrf_token %}
+                {% if messages %}
+                  <div class="alert alert-success">
+                    {% for message in messages %}
+                      {{ message }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    {{ form.name|as_crispy_field }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    {{ form.email|as_crispy_field }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    {{ form.subject|as_crispy_field }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    {{ form.message|as_crispy_field }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <input type="submit" value="Send Message" class="btn btn-primary rounded-3 py-2 px-4">
+                    <span class="submitting"></span>
+                  </div>
+                </div>
+              </form>
+              <div id="form-message-warning mt-4"></div> 
+              <div id="form-message-success">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -53,7 +53,11 @@ def index(request) -> HttpResponse:
             search_term = search_form.cleaned_data["search_term"]
             if search_term:
                 post_list = post_list.filter(
-                    Q(title__icontains=search_term) | Q(content__icontains=search_term)
+                    Q(
+                        title__icontains=search_term
+                    ) | Q(
+                        content__icontains=search_term
+                    )
                 )
                 if not post_list.exists():
                     messages.error(request, "No results found")
@@ -130,7 +134,9 @@ def contact(request) -> HttpResponse:
                 name=name, email=email, subject=subject, message=message
             )
             contact_message.save()
-            messages.success(request, "Your message has been sent successfully!")
+            messages.success(
+                request, "Your message has been sent successfully!"
+            )
             return redirect(request.path)
 
     return render(request, "blog/contact.html", {"form": form})
@@ -165,8 +171,9 @@ class PostDetailView(DetailView):
         """
         Process the form for adding a comment by the user
 
-        In this view, the url address is processed and after the user has left a comment,
-        he will be redirected to the section that is marked comments-section in the template
+        In this view, the url address is processed and after the user
+        has left a comment, he will be redirected to the section that is
+        marked comments-section in the template
 
         :param request: request
         :param args: *args
@@ -178,7 +185,9 @@ class PostDetailView(DetailView):
 
         if form.is_valid():
             comment = Comment(
-                text=form.cleaned_data["text"], post=self.object, author=request.user
+                text=form.cleaned_data["text"],
+                post=self.object,
+                author=request.user
             )
             comment.save()
 
@@ -241,10 +250,12 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = Comment
 
     def get_success_url(self) -> Optional[str]:
-        """To stay on the page at the #comments-section after delete a comment"""
+        """To stay at the #comments-section after delete a comment"""
         post_pk = self.object.post.pk
 
-        return reverse("blog:post-detail", kwargs={"pk": post_pk}) + "#comments-section"
+        return reverse(
+            "blog:post-detail", kwargs={"pk": post_pk}
+        ) + "#comments-section"
 
     def get_queryset(self) -> QuerySet[Comment]:
         """Comments will be filtered by the current user"""

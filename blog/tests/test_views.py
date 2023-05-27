@@ -74,7 +74,9 @@ class FunctionBasedViewTests(TestCase):
         response = self.client.post(reverse("blog:contact"), data=form_data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(ContactMessage.objects.filter(name="Test Name").exists())
+        self.assertTrue(ContactMessage.objects.filter(
+            name="Test Name"
+        ).exists())
 
 
 class ClassBasedViewTests(TestCase):

@@ -27,13 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
-]
-
-
 # Application definition
 
 DEVELOPED_APPS = [
@@ -42,7 +35,6 @@ DEVELOPED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "ckeditor",
-    "debug_toolbar",
 ]
 
 INSTALLED_APPS = [

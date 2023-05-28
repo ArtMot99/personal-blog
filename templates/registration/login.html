@@ -8,23 +8,24 @@
 
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="card">
-        <div class="card-body p-lg-5 text-center shadow-lg">
-          <div class="text-center">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-body p-lg-5 text-center">
+          <div class="text-center mb-4">
             <img src="{% static "assets/img/login_form_icon.png" %}"
-                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                 class="img-fluid profile-image-pic img-thumbnail rounded-circle"
                  width="200px" alt="profile">
           </div>
           <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             {{ form|crispy }}
-            <input class="btn btn-primary" type="submit" value="Login">
+            <div class="d-grid gap-2">
+              <input class="btn btn-primary" type="submit" value="Login">
+            </div>
             <input type="hidden" name="next" value="{{ next }}" />
           </form>
-          <br>
-          <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not Registered?
+          <div id="emailHelp" class="form-text text-center mt-4 mb-3 text-dark">Not Registered?
             <a href="{% url "blog:sign-up" %}" class="text-dark fw-bold"> Create an Account</a>
           </div>
         </div>

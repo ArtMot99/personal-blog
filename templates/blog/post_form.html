@@ -5,29 +5,30 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="">
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
         <div class="card shadow-lg">
           <div class="card-body p-lg-5 text-center">
-            <div class="text-center">
+            <div class="text-center mb-4">
               <img src="{% static "assets/img/add_new_post_image.png" %}"
-                   class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                   class="img-fluid profile-image-pic img-thumbnail rounded-circle"
                    width="200px" alt="profile">
             </div>
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
               {{ form|crispy }}
-              {% if form.instance.pk %}
-                <input class="btn btn-warning" type="submit" value="Update Post">
-              {% else %}
-                <input class="btn btn-primary" type="submit" value="Create Post">
-              {% endif %}
+              <div class="d-grid gap-2">
+                {% if form.instance.pk %}
+                  <input class="btn btn-warning" type="submit" value="Update Post">
+                {% else %}
+                  <input class="btn btn-primary" type="submit" value="Create Post">
+                {% endif %}
+              </div>
             </form>
-            <br>
           </div>
         </div>
       </div>
     </div>
-  </div>
+</div>
 {% endblock %}

@@ -41,6 +41,18 @@ Run the following command to start the project:
 ` python manage.py runserver  `
 
 
+## Loading test data
+
+To load test data into the database, run the following commands:
+```
+python manage.py loaddata fixtures/user.json
+python manage.py loaddata fixtures/category.json
+python manage.py loaddata fixtures/post.json
+python manage.py loaddata fixtures/comment.json
+```
+**It is important to execute these commands in the same sequence!**
+
+
 ## Contacts
 
 If you have any questions please contact me via email: **motrunich2013@gmail.com**\
@@ -64,4 +76,4 @@ and deleting a post on the page with a post.
 
 ## Demo
 
-![Website interface](demo.png)
+![Website interface](demo_data_image/demo.png)

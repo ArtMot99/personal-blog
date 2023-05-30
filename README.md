@@ -43,14 +43,20 @@ Run the following command to start the project:
 
 ## Loading test data
 
-To load test data into the database, run the following commands:
+To load test data into the database, run the following command:
 ```
-python manage.py loaddata fixtures/user.json
-python manage.py loaddata fixtures/category.json
-python manage.py loaddata fixtures/post.json
-python manage.py loaddata fixtures/comment.json
+python manage.py loaddata fixtures/user.json fixtures/category.json fixtures/post.json fixtures/comment.json
 ```
-**It is important to execute these commands in the same sequence!**
+
+*You can also sign in to a test user account with the following details:*
+
+Username: `test`\
+Password `Test12345`
+
+**Sign in to check your admin capabilities:**
+
+Username: `admin`\
+Password `admin`
 
 
 ## Contacts

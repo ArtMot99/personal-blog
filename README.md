@@ -34,19 +34,25 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 Please replace **your-secret-key** with your Django secret key.
 
 
-## Start
-
-Run the following command to start the project:
-
-` python manage.py runserver  `
-
-
 ## Loading test data
+
+**Before downloading the demo data please create a `media` folder in the root of the project:**
+> personal_blog/**media**
+
+**and move the `demo_data_image` folder there:**
+> personal_blog/media/**demo_data_image**
 
 To load test data into the database, run the following command:
 ```
 python manage.py loaddata fixtures/user.json fixtures/category.json fixtures/post.json fixtures/comment.json
 ```
+
+
+## Start
+
+Run the following command to start the project:
+
+` python manage.py runserver  `
 
 *You can also sign in to a test user account with the following details:*
 
@@ -82,4 +88,4 @@ and deleting a post on the page with a post.
 
 ## Demo
 
-![Website interface](demo_data_image/demo.png)
+![Website interface](demo.png)

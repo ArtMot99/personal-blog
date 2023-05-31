@@ -1,0 +1,17 @@
+{% load crispy_forms_filters %}
+<div class="card mb-4 shadow animate__animated animate__pulse">
+  <div class="card-header text-center bg-dark bg-opacity-75 text-white">Search</div>
+  <div class="card-body">
+    <div class="form-control-lg">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      <form method="GET" action="">
+      {{ search_form|crispy }}
+      <button class="btn btn-dark opacity-75" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</div>

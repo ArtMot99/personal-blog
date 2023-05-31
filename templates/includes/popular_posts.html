@@ -1,0 +1,17 @@
+{% load popular_posts %}
+
+<div class="card my-4 shadow animate__animated animate__pulse animate__delay-2s">
+  <div class="card-header text-center bg-dark bg-opacity-75 text-white">Popular posts</div>
+  <div class="card-body">
+    {% get_popular_posts as popular_posts %}
+    <ul class="list-group">
+      {% for post in popular_posts %}
+        <li class="list-group-item">
+          <a class="alert-link text-decoration-none" href="{% url "blog:post-detail" pk=post.id %}">
+            {{ post.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

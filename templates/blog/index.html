@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Blog entries-->
+    <div class="col-lg-8">
+      <!-- Nested row for non-featured blog posts-->
+      {% for post in page_obj %}
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Blog post-->
+          <div class="card mb-4">
+            {% if post.image %}
+              {% thumbnail post.image "700x350" crop="center" as im %}
+              <a href="{% url "blog:post-detail" pk=post.pk %}">
+                <img class="card-img-top" src="{{ im.url }}" alt="Post {{ post.title }}">
+              </a>
+              {% endthumbnail %}
+            {% else %}
+              <a href="{% url "blog:post-detail" pk=post.pk %}">
+                <img class="card-img-top"
+                     src="{% static "assets/img/new_post_image.jpeg" %}"
+                     alt="{{ post.title }}">
+              </a>
+            {% endif %}
+            <div class="card-body">
+              <div class="small text-muted">{{ post.created_at }}</div>
+              <a href="{% url "blog:post-detail" pk=post.pk %}" class="text-decoration-none text-dark">
+                <h2 class="card-title h4">{{ post.title }}</h2>
+              </a>
+              {% if post.num_comments %}
+                <div class="small text-muted text-end">
+                    This post has {{ post.num_comments }} {{ post.num_comments|pluralize:"comment,comments" }}
+                </div>
+              {% else %}
+                <div class="small text-muted text-end">
+                    This post has no comments yet
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+        <div class="alert alert-warning mt-4" role="alert">
+          There are currently no posts on this blog
+        </div>
+      {% endfor %}
+      <!-- Pagination-->
+      {% include "includes/post_pagination.html" %}
+    </div>
+  <!-- Side widgets-->
+  <div class="col-lg-4">
+    <!-- Search widget-->
+    {% include "includes/search_widget.html" %}
+    <!-- Categories widget-->
+    {% include "includes/categories_widget.html" %}
+    <!-- Popular posts widget-->
+    {% include "includes/popular_posts.html" %}
+  </div>
+  </div>
+</div>
+{% endblock %}

@@ -150,7 +150,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = "staticfiles/"
+STATIC_ROOT = "static"
+MEDIA_ROOT = "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -159,7 +160,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # With this line we say that the directory with the media files
 # will be in the root of our project
-MEDIA_ROOT = BASE_DIR / "media"
+
 
 # This variable will be responsible for the path of media files in the browser
 MEDIA_URL = "/media/"

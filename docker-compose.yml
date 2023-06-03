@@ -5,8 +5,8 @@ services:
     image: personal_blog_v1:latest
     container_name: personal_blog_v1
     volumes:
-      - static_volume:/user_pb/static
-      - media_volume:/user_pb/media
+      - static_volume:/user_tm/static
+      - media_volume:/user_tm/media
     env_file:
       - .env
     environment:
@@ -20,8 +20,8 @@ services:
     container_name: personal_blog_v1_nginx
     image: personal_blog_v1_nginx
     volumes:
-      - static_volume:/user_pb/static
-      - media_volume:/user_pb/media
+      - static_volume:/user_tm/static
+      - media_volume:/user_tm/media
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html

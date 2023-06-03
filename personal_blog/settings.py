@@ -147,10 +147,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_ROOT = "static"
-MEDIA_ROOT = "media"
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+STATIC_ROOT = "staticfiles/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -163,6 +164,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # This variable will be responsible for the path of media files in the browser
 MEDIA_URL = "/media/"
+MEDIA_ROOT = "media"
 
 # Add configuration for CKEditor
 CKEDITOR_CONFIGS = {

@@ -7,8 +7,8 @@ This is a platform for publishing personal articles, where each user can create 
 ## Check it out!
 Live version: [Personal blog](https://alter-ego.fun)
 
-login: test_user\
-password: Test12345
+**Login:** test_user\
+**Password:** Test12345
 
 
 ## Installation

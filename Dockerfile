@@ -13,7 +13,7 @@ RUN pip install --upgrade pip
 RUN apt-get update && apt-get -qy install gcc libjpeg-dev libxslt-dev \
     libpq-dev libmariadb-dev libmariadb-dev-compat gettext cron openssh-client flake8 locales
 
-RUN useradd -rms /bin/bash user_pb && chmod 777 /opt/run
+RUN mkdir -p /opt/run && useradd -rms /bin/bash user_pb && chmod 777 /opt/run
 
 WORKDIR /user_pb
 
@@ -26,4 +26,5 @@ RUN pip install -r requirements.txt
 USER user_pb
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "personal_blog.wsgi:application"]
+
 

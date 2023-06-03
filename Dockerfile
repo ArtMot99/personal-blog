@@ -13,7 +13,7 @@ RUN pip install --upgrade pip
 RUN apt-get update && apt-get -qy install gcc libjpeg-dev libxslt-dev \
     libpq-dev libmariadb-dev libmariadb-dev-compat gettext cron openssh-client flake8 locales
 
-RUN mkdir -p /opt/run && useradd -rms /bin/bash user_pb && chmod 777 /opt/run
+RUN useradd -rms /bin/bash user_pb && chmod 777 /opt/run
 
 WORKDIR /user_pb
 

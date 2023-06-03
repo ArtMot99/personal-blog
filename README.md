@@ -4,6 +4,13 @@ Personal Blog is a web application developed using Django.\
 This is a platform for publishing personal articles, where each user can create an account and write a comment.
 
 
+## Check it out!
+Live version: [Personal blog](https://alter-ego.fun)
+
+login: test_user
+password: Test12345
+
+
 ## Installation
 
 Follow these steps to install and run the project:
